@@ -6,7 +6,7 @@ exports.findAll = (req, res) => {
   SpareParts.find()
     .then((data) => {
       if (!data)
-        res.status(404).send({ message: 'Error retrieving sparepart data' });
+        res.status(400).send({ message: 'Error retrieving sparepart data' });
       else res.send(data);
     })
     .catch((err) => {
@@ -22,7 +22,7 @@ exports.findOne = (req, res) => {
   SpareParts.findById(id)
     .then((data) => {
       if (!data)
-        res.status(404).send({ message: 'Not found sparepart with id: ' + id });
+        res.status(400).send({ message: 'Not found sparepart with id: ' + id });
       else res.send(data);
     })
     .catch((err) => {
@@ -56,7 +56,7 @@ exports.create = (req, res) => {
     .save(sparePart)
     .then((data) => {
       if (!data)
-        res.status(404).send({ message: 'Error retrieving sparepart data' });
+        res.status(400).send({ message: 'Error retrieving sparepart data' });
       else res.send(data);
     })
     .catch((err) => {
@@ -93,7 +93,7 @@ exports.update = (req, res) => {
   SpareParts.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
     .then((data) => {
       if (!data) {
-        res.status(404).send({
+        res.status(400).send({
           message: `Cannot update sparepart with id: ${id}.`,
         });
       } else res.send({ message: 'Sparepart was updated successfully.' });
@@ -111,7 +111,7 @@ exports.delete = (req, res) => {
   SpareParts.findByIdAndDelete(id)
     .then((data) => {
       if (!data) {
-        res.status(404).send({
+        res.status(400).send({
           message: `Cannot delete spareparts with id=${id}`,
         });
       } else {

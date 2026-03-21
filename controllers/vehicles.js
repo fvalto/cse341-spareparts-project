@@ -6,7 +6,7 @@ exports.findAll = (req, res) => {
   Vehicles.find()
     .then((data) => {
       if (!data)
-        res.status(404).send({ message: 'Error retrieving vehicle data' });
+        res.status(400).send({ message: 'Error retrieving vehicle data' });
       else res.send(data);
     })
     .catch((err) => {
@@ -23,7 +23,7 @@ exports.findOne = (req, res) => {
   Vehicles.findById(id)
     .then((data) => {
       if (!data)
-        res.status(404).send({ message: 'Not found vehicle with id: ' + id });
+        res.status(400).send({ message: 'Not found vehicle with id: ' + id });
       else res.send(data);
     })
     .catch((err) => {
@@ -52,7 +52,7 @@ exports.create = (req, res) => {
     .save(vehicle)
     .then((data) => {
       if (!data)
-        res.status(404).send({ message: 'Error retrieving vehicle data' });
+        res.status(400).send({ message: 'Error retrieving vehicle data' });
       else res.send(data);
     })
     .catch((err) => {
@@ -87,7 +87,7 @@ exports.update = (req, res) => {
   Vehicles.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
     .then((data) => {
       if (!data) {
-        res.status(404).send({
+        res.status(400).send({
           message: `Cannot update vehicles with id: ${id}.`,
         });
       } else res.send({ message: 'Vehicle was updated successfully.' });
@@ -105,7 +105,7 @@ exports.delete = (req, res) => {
   Vehicles.findByIdAndDelete(id)
     .then((data) => {
       if (!data) {
-        res.status(404).send({
+        res.status(400).send({
           message: `Cannot delete vehicles with id=${id}`,
         });
       } else {
