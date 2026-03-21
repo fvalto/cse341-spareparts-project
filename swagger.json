@@ -5,9 +5,9 @@
     "description": "Week 3-4 API: CRUD Spareparts",
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
+  "host": "cse341-spareparts-project.onrender.com",
   "basePath": "/",
-  "schemes": ["http", "https"],
+  "schemes": ["https"],
   "paths": {
     "/": {
       "get": {
