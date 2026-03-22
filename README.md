@@ -1,1 +1,1 @@
-Render website: [text](https://cse341-spareparts-project.onrender.com)
+Render website: https://cse341-spareparts-project.onrender.com
