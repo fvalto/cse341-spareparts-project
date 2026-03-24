@@ -5,8 +5,8 @@ const doc = {
     title: 'Spareparts API',
     description: 'Week 3-4 API: CRUD Spareparts',
   },
-  host: 'localhost:3000',
-  schemes: ['http', 'https'],
+  host: 'cse341-spareparts-project.onrender.com',
+  schemes: ['https'],
 };
 const outputFile = './swagger.json';
 const endpointsFiles = ['./routes/index.js'];
