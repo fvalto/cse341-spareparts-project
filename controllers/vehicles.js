@@ -20,7 +20,7 @@ exports.findAll = async (req, res) => {
 
 exports.findOne = async (req, res) => {
   /* #swagger.description = 'Endpoint to retrieve a single vehicles by its ID.' */
-  const id = req.params.vehicles;
+  const id = req.params.vehicles_id;
   try {
     const data = await Vehicles.findById(id);
     if (!data) {
@@ -100,9 +100,9 @@ exports.update = async (req, res) => {
 
 exports.delete = async (req, res) => {
   /* #swagger.description = 'Endpoint to delete an existing vehicle by its ID.' */
-  const id = req.params.vehicle_id;
+  const id = req.params.vehicles_id;
   try {
-    const data = await Vehicle.findByIdAndDelete(id);
+    const data = await Vehicles.findByIdAndDelete(id);
     if (!data) {
       return res.status(400).send({
         message: `Cannot delete vehicle with id:${id}`,
