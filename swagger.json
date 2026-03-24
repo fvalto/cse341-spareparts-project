@@ -19,16 +19,6 @@
         }
       }
     },
-    "/api-docs": {
-      "get": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
     "/spareparts/": {
       "get": {
         "description": "Endpoint to retrieve all spareparts from the database.",
@@ -284,7 +274,7 @@
     },
     "/vehicles/{vehicles_id}": {
       "get": {
-        "description": "Endpoint to retrieve a single vehicle by its ID.",
+        "description": "Endpoint to retrieve a single vehicles by its ID.",
         "parameters": [
           {
             "name": "vehicles_id",
@@ -365,7 +355,7 @@
         }
       },
       "delete": {
-        "description": "Endpoint to delete an existing vehicles by its ID.",
+        "description": "Endpoint to delete an existing vehicle by its ID.",
         "parameters": [
           {
             "name": "vehicles_id",

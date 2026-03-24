@@ -1,38 +1,42 @@
 const db = require('../models');
 const SpareParts = db.spareparts;
 
-exports.findAll = (req, res) => {
+exports.findAll = async (req, res) => {
   /* #swagger.description = 'Endpoint to retrieve all spareparts from the database.' */
-  SpareParts.find()
-    .then((data) => {
-      if (!data)
-        res.status(400).send({ message: 'Error retrieving sparepart data' });
-      else res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: 'Some error occurred while retrieving spareparts.',
-      });
+  try {
+    const data = await SpareParts.find();
+    if (!data) {
+      return res
+        .status(400)
+        .send({ message: 'Error retrieving sparepart data' });
+    }
+    res.send(data);
+  } catch (err) {
+    res.status(500).send({
+      message: 'Some error occurred while retrieving spareparts.',
     });
+  }
 };
 
-exports.findOne = (req, res) => {
+exports.findOne = async (req, res) => {
   /* #swagger.description = 'Endpoint to retrieve a single sparepart by its ID.' */
   const id = req.params.sparepart_id;
-  SpareParts.findById(id)
-    .then((data) => {
-      if (!data)
-        res.status(400).send({ message: 'Not found sparepart with id: ' + id });
-      else res.send(data);
-    })
-    .catch((err) => {
-      res
-        .status(500)
-        .send({ message: 'Error retrieving sparepart with id: ' + id });
-    });
+  try {
+    const data = await SpareParts.findById(id);
+    if (!data) {
+      return res
+        .status(400)
+        .send({ message: 'Not found sparepart with id: ' + id });
+    }
+    res.send(data);
+  } catch (err) {
+    res
+      .status(500)
+      .send({ message: 'Error retrieving sparepart with id: ' + id });
+  }
 };
 
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
   /* #swagger.description = 'Endpoint to create a new sparepart in the database.' */
   if (!req.body.partNumber) {
     return res.status(400).send({
@@ -52,21 +56,17 @@ exports.create = (req, res) => {
     location: req.body.location,
   });
 
-  sparePart
-    .save(sparePart)
-    .then((data) => {
-      if (!data)
-        res.status(400).send({ message: 'Error retrieving sparepart data' });
-      else res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: 'Some error occurred while creating the sparepart.',
-      });
+  try {
+    const data = await sparePart.save();
+    res.send(data);
+  } catch (err) {
+    res.status(500).send({
+      message: 'Some error occurred while creating the sparepart.',
     });
+  }
 };
 
-exports.update = (req, res) => {
+exports.update = async (req, res) => {
   /* #swagger.description = 'Endpoint to update an existing sparepart by its ID.'
     #swagger.parameters['body'] = {
     in: 'body',
@@ -90,39 +90,35 @@ exports.update = (req, res) => {
   }
 
   const id = req.params.sparepart_id;
-  SpareParts.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
-    .then((data) => {
-      if (!data) {
-        res.status(400).send({
-          message: `Cannot update sparepart with id: ${id}.`,
-        });
-      } else res.send({ message: 'Sparepart was updated successfully.' });
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: 'Error updating sparepart with id: ' + id,
+  try {
+    const data = await SpareParts.findByIdAndUpdate(id, req.body);
+    if (!data) {
+      return res.status(400).send({
+        message: `Cannot update sparepart with id: ${id}.`,
       });
+    }
+    res.send({ message: 'Sparepart was updated successfully.' });
+  } catch (err) {
+    res.status(500).send({
+      message: 'Error updating sparepart with id: ' + id,
     });
+  }
 };
 
-exports.delete = (req, res) => {
+exports.delete = async (req, res) => {
   /* #swagger.description = 'Endpoint to delete an existing sparepart by its ID.' */
   const id = req.params.sparepart_id;
-  SpareParts.findByIdAndDelete(id)
-    .then((data) => {
-      if (!data) {
-        res.status(400).send({
-          message: `Cannot delete spareparts with id=${id}`,
-        });
-      } else {
-        res.send({
-          message: 'Sparepart was deleted successfully!',
-        });
-      }
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: 'Error updating sparepart with id: ' + id,
+  try {
+    const data = await SpareParts.findByIdAndDelete(id);
+    if (!data) {
+      return res.status(400).send({
+        message: `Cannot delete spareparts with id:${id}`,
       });
+    }
+    res.send({ message: 'Sparepart was deleted successfully!' });
+  } catch (err) {
+    res.status(500).send({
+      message: 'Error deleting sparepart with id: ' + id,
     });
+  }
 };
